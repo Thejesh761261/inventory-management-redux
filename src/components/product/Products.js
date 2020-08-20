@@ -5,6 +5,9 @@ import SideNav from '../sideNavbar/Sidenav';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Redirect } from "react-router-dom";
+import { connect } from 'react-redux';
+import deleteProduct from '../../actions/deleteProductBroadcast';
+import { bindActionCreators } from 'redux';
 
 class Products extends React.Component {
     state = { 
@@ -20,34 +23,45 @@ class Products extends React.Component {
         products1:[]
      }
 
-     componentDidMount(){
+     componentWillMount(){
+      console.log(this.state.products)
        this.fetchProductDetails();
      }
 
      fetchProductDetails=()=>{
-        axios.get('http://localhost:3000/products')
-          .then(response=>{
-            console.log(response.data);
-            this.setState({products:response.data});
-            this.setState({tempProducts:response.data});
-            this.setState({multiSearchProducts:response.data});
-            this.getCategories();
-            this.getManufacturers();
-            console.log(this.state.tempProducts);
-          },error=>{
-            console.log(error)
-          })
+        // axios.get('http://localhost:3000/products')
+        //   .then(response=>{
+        //     console.log(response.data);
+        //     this.setState({products:response.data});
+        //     this.setState({tempProducts:response.data});
+        //     this.setState({multiSearchProducts:response.data});
+        //     this.getCategories();
+        //     this.getManufacturers();
+        //     console.log(this.state.tempProducts);
+        //   },error=>{
+        //     console.log(error)
+        //   })
+        console.log(this.props.products)
+        this.setState({products:this.props.products});
+        this.getCategories();
+        this.getManufacturers();
+        console.log("getcategories")
+        this.setState({tempProducts:this.props.products});
+        this.setState({multiSearchProducts:this.props.products});
+        
      }
 
      getCategories(){
-        this.state.products.map(p=>this.state.categories.push(p.category));
+      console.log("in categories");
+        this.props.products.map(p=>this.state.categories.push(p.category));
+        console.log(this.state.categories)
         let arr= this.state.categories.filter((value, index, self) => self.indexOf(value) === index)
         this.setState({categories:arr});
         console.log(arr);  
      }
 
      getManufacturers(){
-      this.state.products.map(p=>this.state.manufacturer.push(p.manufacturer));
+      this.props.products.map(p=>this.state.manufacturer.push(p.manufacturer));
       let arr= this.state.manufacturer.filter((value, index, self) => self.indexOf(value) === index)
       this.setState({manufacturer:arr});
       console.log(arr);  
@@ -56,13 +70,15 @@ class Products extends React.Component {
      deleteProduct=(event)=>{
         console.log(event.target.id);
         let id = event.target.id;
-        axios.delete('http://localhost:3000/products/'+id)
-          .then(response=>{
-            console.log("Deletion Success");
-            this.fetchProductDetails();
-          },error=>{
-            console.log("error occurred");
-          })
+        // axios.delete('http://localhost:3000/products/'+id)
+        //   .then(response=>{
+        //     console.log("Deletion Success");
+        //     this.fetchProductDetails();
+        //   },error=>{
+        //     console.log("error occurred");
+        //   })
+        this.props.deleteClicked(id);
+        this.fetchProductDetails();
      }
 
      toggleHandler=(e)=>{
@@ -206,7 +222,7 @@ class Products extends React.Component {
                                 <td><div style={{backgroundColor:product.color,borderRadius:"50%",height:"1rem",width:"1rem"}}></div></td>
                                 <td><input type="button" id={product.id} value="Edit" className="b1" onClick={this.editHandler} /></td>
                                 <td><input type="button" id={product.id} value="Delete" className="b1" onClick={this.deleteProduct} /></td>
-                       </tr>
+                              </tr>
                     
                            )
                          })}
@@ -252,4 +268,17 @@ class Products extends React.Component {
     }
 }
  
-export default Products;
+function convertStoreToPropsForProductsContainer(store){
+  console.log(store);
+  return {
+    products:store.products
+  }
+}
+
+function convertEventToPropsAndDispatch(dispatch){
+  return bindActionCreators({
+    deleteClicked:deleteProduct
+  },dispatch);
+}
+
+export default connect(convertStoreToPropsForProductsContainer,convertEventToPropsAndDispatch)(Products);

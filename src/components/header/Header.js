@@ -19,11 +19,11 @@ class Header extends React.Component {
             <nav className="navbar fixed-top navbar-expand-lg navbar-light" style={{backgroundColor:'#404040'}}>
             <b className="navbar-brand" tabIndex="-1" style={{fontFamily:"sans-serif",color:"wheat"}} >Inventory Management</b>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span className="navbar-toggler-icon"></span>
              </button>
             <div className="collapse navbar-collapse" id="navbarNav">
             
-                <ul class="navbar-nav mr-auto">
+                <ul className="navbar-nav mr-auto">
                     <li className="nav-item" style={menuitem}>
                         <Link to="/register" className="nav-link" style={{ textDecoration:'none',color:"white"}}>Register</Link>
                     </li>

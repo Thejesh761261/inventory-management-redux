@@ -4,11 +4,18 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { HashRouter } from 'react-router-dom';
+import { createStore } from 'redux';
+import allReducers from './reducers/combineAllReducers';
+import { Provider } from 'react-redux';
+
+const reduxStore = createStore(allReducers);
 
 ReactDOM.render(
   <React.StrictMode>
     <HashRouter>
-    <App />
+      <Provider store={reduxStore}>
+        <App/>
+      </Provider>
     </HashRouter>
   </React.StrictMode>,
   document.getElementById('root')

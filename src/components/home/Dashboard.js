@@ -2,6 +2,7 @@ import React from 'react';
 import '../../App.css';
 import Chart from 'react-google-charts';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 class Dashboard extends React.Component{
 
@@ -143,4 +144,13 @@ class Dashboard extends React.Component{
 
 }
 
-export default Dashboard;
+function convertStoreToPropsForSalesDetails(store){
+    console.log(store);
+    return { 
+        products:store.products,
+        sales:store.sales
+    }
+
+}
+
+export default connect(convertStoreToPropsForSalesDetails)(Dashboard);
