@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import deleteProduct from '../../actions/deleteProductBroadcast';
 import { bindActionCreators } from 'redux';
 
+var storeData = [];
+
 class Products extends React.Component {
     state = { 
         products:[],
@@ -23,10 +25,13 @@ class Products extends React.Component {
         products1:[]
      }
 
-     componentWillMount(){
+     componentDidMount(){
+       console.log("cmd")
       console.log(this.state.products)
        this.fetchProductDetails();
      }
+
+    
 
      fetchProductDetails=()=>{
         // axios.get('http://localhost:3000/products')
@@ -41,8 +46,10 @@ class Products extends React.Component {
         //   },error=>{
         //     console.log(error)
         //   })
+        console.log("Fetched")
         console.log(this.props.products)
-        this.setState({products:this.props.products});
+        this.setState({products:storeData},()=>console.log(JSON.stringify(this.state.products)));
+        console.log(storeData);
         this.getCategories();
         this.getManufacturers();
         console.log("getcategories")
@@ -270,8 +277,9 @@ class Products extends React.Component {
  
 function convertStoreToPropsForProductsContainer(store){
   console.log(store);
+  storeData=store.products;
   return {
-    products:store.products
+    products:storeData
   }
 }
 

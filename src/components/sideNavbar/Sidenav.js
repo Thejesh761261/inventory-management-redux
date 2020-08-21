@@ -8,10 +8,10 @@ class Sidenav extends React.Component {
     render() { 
         return (  
             <div className="sidebar">
-                <Link to="/home"><p >Dashboard</p></Link> 
-                <Link to="/products"><p>Product Details</p></Link>
-               <Link to="/home"><p >News</p></Link>
-               <Link to="/home"><p >Contact</p></Link>
+                <Link to="/home"><div >Dashboard</div></Link> 
+                <Link to="/products"><div>Product Details</div></Link>
+               <Link to="/home"><div >News</div></Link>
+               <Link to="/home"><div >Contact</div></Link>
               
              </div>
             

@@ -1,3 +1,4 @@
+
 const productsReducer=(state=null,action)=>{
 
     var allProducts=[
@@ -272,6 +273,17 @@ const productsReducer=(state=null,action)=>{
             "id": 15
           }
     ]
+
+    // axios.get('http://localhost:3000/products')
+    //   .then(res=>{
+    //     console.log(res.data)
+    //     allProducts = res.data;
+    //     state=allProducts
+    //     console.log(allProducts)
+    //   },error=>{
+    //     console.log("error in axios")
+    //   })
+      
 
     switch (action.type) {
       case "ADD_NEW_PRODUCT":

@@ -21,33 +21,32 @@ class InventoryHeader extends React.Component {
     render() { 
         return ( 
             <div className="inventoryHeader">
+                <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" style={{backgroundColor:"#404040"}}>
+                  <p className="navbar-brand" style={{color:"wheat"}}>Inventory Management</p>
+                   <p className="nav-item" style={{color:"white"}}>Welcome {sessionStorage.getItem("loggedInUser")}!!</p>
+                  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                  </button>
+                  <div className="collapse navbar-collapse" id="navbarText" style={{padding:"1%"}}>
+                    <ul className="navbar-nav mr-auto nav1">
+                      <li className="nav-item active"> 
+                        {/* <a className="nav-link">Home <span class="sr-only">(current)</span></a> */}
+                      </li>
+                      <li className="nav-item">
+                        <p className="nav-link nh1">Hi</p>
+                      </li>
+                      <li className="nav-item">
+                        <p className="nav-link nh1">Hello</p>
+                      </li>
+                    </ul>
+                    <span  style={{float:"right"}} onClick={this.logoutHandler}>
+                     <Link to="/" style={{color:"white",textDecoration:"none"}}> Logout</Link>
+                    </span>
+                  </div>
+                </nav>
       
-      <nav className="navbar fixed-top navbar-expand-lg navbar-light" style={{backgroundColor:'#404040'}}>
-      {/* <div id="mySidenav" class="sidenav">
-                      <p className="closebtn" onclick={this.closeNav}>&times;</p>
-                      <p>About</p>
-                      <p>Services</p>
-                      <p>Clients</p>
-                      <p>Contact</p>
-        </div>
-        <span style={{fontSize:"30px",cursor:"pointer"}} onclick={this.openNav}>&#9776;</span> */}
-
-          <b className="navbar-brand" style={{color:"wheat"}}>Inventory Management</b>
-          <p style={{marginTop:"1%",color:"white"}}><i>Welcome {sessionStorage.getItem('loggedInUser')}!!!</i></p>
-          {/* <button className="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button> */}
-          <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="nav navbar-nav"  style={{backgroundColor:'lightgray',border:'none',color:"black"}}>
-            {/* <li className="nav-item">Dashboard</li>
-            <li className="nav-item">Products</li> */}
-                                              
-          </ul>
-          </div>
-          <Link to="/"><p style={{color:'white',textDecoration:'none',float:'right'}} tabIndex="-1" onClick={this.logoutHandler}> Logout</p></Link>
-  </nav>
   
-  </div>
+            </div>
          );
     }
 }

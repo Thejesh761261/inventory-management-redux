@@ -25,22 +25,49 @@ class Dashboard extends React.Component{
 
 
     fetchProductDetails=()=>{
-        axios.get('http://localhost:3000/products')
-            .then(response=>{
-            this.setState({products:response.data});
-            response.data.map(p=>{
-                this.state.categories.push(p.category)
-            })
-           let arr= this.state.categories.filter((value, index, self) => self.indexOf(value) === index)
-           console.log(arr);
-        //    this.setState({categories:arr});
+        // axios.get('http://localhost:3000/products')
+        //     .then(response=>{
+        //     this.setState({products:response.data});
+        //     response.data.map(p=>{
+        //         this.state.categories.push(p.category)
+        //     })
+        //    let arr= this.state.categories.filter((value, index, self) => self.indexOf(value) === index)
+        //    console.log(arr);
+        // //    this.setState({categories:arr});
+        // arr.map(c=>{
+        //     console.log(c)
+        //     let quantity=[];
+        //     quantity=this.state.products.filter(p=>p.category===c)
+        //     console.log(quantity);
+        //     let temp=0;
+        //     quantity.map(q=>{
+        //          temp=q.quantity+temp;
+        //     },0);
+
+        //     this.state.chart1.push([c,parseInt(temp)]);
+        // })
+        // console.log(this.state.chart1)
+
+        //     console.log(this.state.chart1);
+        //     console.log(this.state.products);
+        //     },error=>{
+        //     console.log(error)
+        // })
+        console.log(this.props.products)
+        this.setState({products:this.props.products});
+        this.props.products.map(p=>{
+            this.state.categories.push(p.category)
+        })
+        let arr= this.state.categories.filter((value, index, self) => self.indexOf(value) === index)
+         console.log(arr);
+           this.setState({categories:arr});
         arr.map(c=>{
-            console.log(c)
-            let quantity=[];
-            quantity=this.state.products.filter(p=>p.category===c)
-            console.log(quantity);
-            let temp=0;
-            quantity.map(q=>{
+          console.log(c)
+         let quantity=[];
+         quantity=this.props.products.filter(p=>p.category===c)
+          console.log(quantity);
+          let temp=0;
+          quantity.map(q=>{
                  temp=q.quantity+temp;
             },0);
 
@@ -48,27 +75,23 @@ class Dashboard extends React.Component{
         })
         console.log(this.state.chart1)
 
-            // this.setState({products:response.data},()=>{
-            //     this.state.products.map(p=>{
-            //         this.state.chart1.push([p.category,p.quantity])
-            //     })
-            // });
-            console.log(this.state.chart1);
-            console.log(this.state.products);
-            },error=>{
-            console.log(error)
-        })
+          console.log(this.state.chart1);
+         console.log(this.state.products);
 
-                axios.get('http://localhost:3000/sales')
-                    .then(response=>{
-                        console.log(response.data);
+                // axios.get('http://localhost:3000/sales')
+                //     .then(response=>{
+                //         console.log(response.data);
 
-                        response.data.map(s=>this.state.chart2.push([s.date,s.Formals,s.Jeans,s.Kurtas,s.Sarees,s.Shorts,s.TShirts]));
+                //         response.data.map(s=>this.state.chart2.push([s.date,s.Formals,s.Jeans,s.Kurtas,s.Sarees,s.Shorts,s.TShirts]));
 
-                        console.log(this.state.chart2);
-                    },error=>{
-                        console.log(error);
-                    })
+                //         console.log(this.state.chart2);
+                //     },error=>{
+                //         console.log(error);
+                //     })
+                this.props.sales.map(s=>this.state.chart2.push([s.date,s.Formals,s.Jeans,s.Kurtas,s.Sarees,s.Shorts,s.TShirts]));
+
+                console.log(this.state.chart2);
+
     }
 
     togglePie=()=>{

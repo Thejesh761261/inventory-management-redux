@@ -5,50 +5,33 @@
 body {font-family: Arial, Helvetica, sans-serif;}
 
       
-        ul {
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-          overflow: hidden;
-        }
-        
-        li {
-          float: left;
-        }
-        
-        li a {
-          display: block;
-          color: #666;
-          text-align: center;
-          padding: 14px 16px;
-          text-decoration: none;
-        }
-        li  {
-            display: block;
-            color: #666;
-            text-align: center;
-           text-decoration: none;
-          }
-        
-        li a:hover:not(.active) {
-          background-color: #ddd;
-        }
+        /* .nav1{
+          display: none;
+          visibility: hidden;
+        } */
+
         li:hover:not(.active) {
-            background-color: #ddd;
-        }
+            background-color: grey;
+            color:black;
+        } 
 
         .nav-link:hover{
           color:black
         }
-        
-        li a.active {
-          color: black;
-          background-color: #4CAF50;
+
+
+        .nh1{
+          display: none;
+          visibility: hidden;
+                }
+
+        @media screen and (max-width:800px){
+        .nh1{
+          display: inline;
+          visibility: visible;
         }
-        li.active {
-            color: black;
-            background-color: #4CAF50;
-          }
+
+      }
 
           /* Change styles for span and cancel button on extra small screens */
         @media screen and (max-width: 300px) {
@@ -157,7 +140,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
       margin: 0;
       padding: 0;
       width: 12%;
-      background-color: #404040;
+      background-color: #343A40;
       position: fixed;
       height: 100%;
       overflow: auto;
@@ -171,22 +154,13 @@ body {font-family: Arial, Helvetica, sans-serif;}
       text-decoration: none;
     }
      
-    .sidebar p {
+    .sidebar div {
         display: flex;
         color: white;
+        flex-direction: column;
         padding: 16px;
-        margin: 0px;
+        /* margin: 0px; */
         text-decoration: none;
-      }
-     
-    .sidebar a.active {
-      background-color: #4CAF50;
-      color: white;
-    }
-
-    .sidebar p.active {
-        background-color: #4CAF50;
-        color: black;
       }
       
     
@@ -195,7 +169,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
       color: white;
     }
 
-    .sidebar p:hover:not(.active) {
+    .sidebar div:hover:not(.active) {
         background-color: #555;
         color: white;
       }
@@ -216,18 +190,20 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
       } */
 
-      @media screen and (max-width:500px){
+      /* @media screen and (max-width:500px){
         .navbar{
           height:6%;
         }
 
-      }
+      } */
   
     /* Product details page */
 
     table {
+      /* display: -moz-stack; */
       border-collapse: collapse;
       width: 100%;
+
     }
     
     th, td {
