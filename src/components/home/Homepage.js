@@ -3,6 +3,7 @@ import Products from '../product/Products';
 import Dashboard from './Dashboard';
 import InventoryHeader from '../header/InventoryHeader';
 import SideNav from '../sideNavbar/Sidenav';
+import Login from '../login/Login';
 import '../../App.css';
 
 class Homepage extends React.Component {
@@ -30,6 +31,9 @@ class Homepage extends React.Component {
     
 render()
 {
+    if(sessionStorage.getItem("loggedInUser")===''){
+        return <Login />
+    }else{
     return (
         <div>
             <InventoryHeader></InventoryHeader>
@@ -41,6 +45,7 @@ render()
     </div>
        
     )
+    }
 }
 }
  

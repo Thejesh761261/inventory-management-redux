@@ -33,10 +33,10 @@ class InventoryHeader extends React.Component {
                         {/* <a className="nav-link">Home <span class="sr-only">(current)</span></a> */}
                       </li>
                       <li className="nav-item">
-                        <p className="nav-link nh1">Hi</p>
+                       <Link to="/home"> <p className="nav-link nh1">Dashboard</p></Link>
                       </li>
                       <li className="nav-item">
-                        <p className="nav-link nh1">Hello</p>
+                      <Link to="/products"> <p className="nav-link nh1">Product Details</p> </Link>
                       </li>
                     </ul>
                     <span  style={{float:"right"}} onClick={this.logoutHandler}>

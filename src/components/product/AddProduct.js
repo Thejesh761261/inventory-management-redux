@@ -2,7 +2,7 @@ import React from 'react';
 import '../../App.css';
 import InventoryHeader from '../header/InventoryHeader';
 import SideNav from '../sideNavbar/Sidenav';
-import Axios from 'axios';
+import Login from '../login/Login';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import addProductBroadcast from '../../actions/addProductBroadcast';
@@ -215,6 +215,9 @@ class AddProduct extends React.Component {
 
 
     render() { 
+        if(sessionStorage.getItem("loggedInUser")===''){
+            return <Login />
+        }
         return (
     <div>
     <InventoryHeader></InventoryHeader>
