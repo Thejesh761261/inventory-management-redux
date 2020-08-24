@@ -2,7 +2,7 @@
   "products": [
     {
       "code": "NIKE234",
-      "name": "Mens formal pants",
+      "name": "Nike Mens formal pants",
       "category": "Formals",
       "vendor": "Saradha Traders",
       "unitPrice": 230,
@@ -244,6 +244,8 @@
       "description": "Highlander Jeans",
       "quantity": 23,
       "color": "Blue",
+      "replenishment_value": 350,
+      "reorder_value": 200,
       "size": "34",
       "material": "Denim",
       "idealFor": "Women",
