@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import AddProduct from './AddProduct';
+import EditProduct from './Editproduct';
 import { mount, configure, shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import {MemoryRouter as Router} from 'react-router-dom'
@@ -9,10 +9,10 @@ import '@testing-library/jest-dom/extend-expect'
 import { Provider } from 'react-redux';
 configure({ adapter: new Adapter() })
 
-describe("Add Product Page",function(){
+describe("Edit Product Page",function(){
 
-    it('Addproduct renders without crashing', ()=>{
-        shallow(<AddProduct />);
+    it('EditProduct renders without crashing', ()=>{
+        shallow(<EditProduct />);
          })
 
 it(" check product name", () => {
@@ -42,7 +42,6 @@ it(" check product name", () => {
     expect(input.prop("type")).toEqual("number");
     expect(input.prop("name")).toEqual("quantity");
   });
-
   it(" check product size", () => {
     const wrapper = mount(<input type="text" name="size" />);
     const input = wrapper.find("input");
@@ -56,15 +55,11 @@ it(" check product name", () => {
     expect(input.prop("type")).toEqual("text");
     expect(input.prop("name")).toEqual("color");
   });
-
+  
   it(" check product initial rating", () => {
     const wrapper = mount(<input type="number" name="rating" />);
     const input = wrapper.find("input");
     expect(input.prop("type")).toEqual("number");
     expect(input.prop("name")).toEqual("rating");
   });
-
-
-
-    
 })

@@ -2,12 +2,13 @@ import React from 'react';
 import '../../App.css';
 import InventoryHeader from '../header/InventoryHeader';
 import SideNav from '../sideNavbar/Sidenav';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import deleteProduct from '../../actions/deleteProductBroadcast';
 import { bindActionCreators } from 'redux';
+import allProductsBroadcast from '../../actions/allProductsBroadcast';
 
 var storeData = [];
 
@@ -24,6 +25,23 @@ class Products extends React.Component {
         manufacturer:[],
         products1:[]
      }
+
+  //    componentWillMount(){
+  //      console.log(this.props.products)
+  //     if(this.props.products === undefined){
+  //         this.getAllProducts()
+  //     }
+  // }
+
+//   getAllProducts=()=>{
+//     axios.get('http://localhost:3000/products')
+//         .then(res => {
+//             console.log(res);
+//             this.props.sendAllProducts(res.data)
+//         }, err => {
+//             console.log(err);
+//         })
+// }
 
      componentDidMount(){
        console.log("cmd")
@@ -198,7 +216,7 @@ class Products extends React.Component {
                           
                        <button className="btn btn-info" style={{marginLeft:"2rem"}} onClick={this.toggleHandler}>Toggle View</button>
 
-                       <Link to="/addProduct"><button className="addB" >Add Product</button></Link>
+                       {/* <Link to="/addProduct"><button className="addB" >Add Product</button></Link> */}
                    </span>
                </div>
               {this.state.tableView && (
@@ -292,4 +310,10 @@ function convertEventToPropsAndDispatch(dispatch){
   },dispatch);
 }
 
-export default connect(convertStoreToPropsForProductsContainer,convertEventToPropsAndDispatch)(Products);
+// function convertfunctionToPropsAndBroadcast(dispatch){
+//   return bindActionCreators({
+//     sendAllProducts:allProductsBroadcast
+//   },dispatch);
+// }
+
+export default withRouter(connect(convertStoreToPropsForProductsContainer,convertEventToPropsAndDispatch)(Products));

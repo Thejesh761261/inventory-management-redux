@@ -204,7 +204,7 @@ class Register extends React.Component {
     {this.state.error===true && (<div className="alert-danger">{this.state.errors1["em3"]}</div>)}
 
     <label><b>Date Of Birth</b></label>
-    <input type="date" placeholder="Enter Username" name="dob" required onChange={this.handleDobChange.bind(this)} />
+    <input type="date" placeholder="Enter DoB" name="dob" required onChange={this.handleDobChange.bind(this)} />
     {this.state.error===true && (<div className="alert-danger">{this.state.errors1["dob"]}</div>)}
    
 

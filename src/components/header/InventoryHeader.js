@@ -38,6 +38,9 @@ class InventoryHeader extends React.Component {
                       <li className="nav-item">
                       <Link to="/products"> <p className="nav-link nh1">Product Details</p> </Link>
                       </li>
+                      <li className="nav-item">
+                      <Link to="/addProduct"> <p className="nav-link nh1">Add Product</p> </Link>
+                      </li>
                     </ul>
                     <span  style={{float:"right"}} onClick={this.logoutHandler}>
                      <Link to="/" style={{color:"white",textDecoration:"none"}}> Logout</Link>

@@ -3,7 +3,7 @@ import '../../App.css';
 import InventoryHeader from '../header/InventoryHeader';
 import SideNav from '../sideNavbar/Sidenav';
 import Axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import editProductBroadcast from '../../actions/editProductBroadcast';
@@ -310,4 +310,4 @@ function convertPropsToEventAndBroadcast(dispatch){
     },dispatch);
 }
  
-export default connect(null,convertPropsToEventAndBroadcast)(EditProduct);
+export default withRouter(connect(null,convertPropsToEventAndBroadcast)(EditProduct));

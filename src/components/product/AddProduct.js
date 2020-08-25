@@ -5,7 +5,7 @@ import SideNav from '../sideNavbar/Sidenav';
 import Login from '../login/Login';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import addProductBroadcast from '../../actions/addProductBroadcast';
 
 class AddProduct extends React.Component {
@@ -223,7 +223,7 @@ class AddProduct extends React.Component {
     <div>
     <InventoryHeader></InventoryHeader>
     <SideNav></SideNav>
-    <h3 className="he1">Add Product</h3>
+    <h3 className="he1" data-testid='h3'>Add Product</h3>
     <hr/>
     <div className="c2">
 
@@ -315,4 +315,4 @@ function convertPropsToEventAndBroadcast(dispatch){
 
 
  
-export default connect(convertPropsToStateForAddProduct,convertPropsToEventAndBroadcast)(AddProduct);
+export default withRouter( connect(convertPropsToStateForAddProduct,convertPropsToEventAndBroadcast)(AddProduct));
