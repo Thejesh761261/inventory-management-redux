@@ -5,6 +5,7 @@ import SideNav from '../sideNavbar/Sidenav';
 import Login from '../login/Login';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 import addProductBroadcast from '../../actions/addProductBroadcast';
 
 class AddProduct extends React.Component {
@@ -216,7 +217,7 @@ class AddProduct extends React.Component {
 
     render() { 
         if(sessionStorage.getItem("loggedInUser")===''){
-            return <Login />
+            return <Redirect to={{ pathname : "/" }} />
         }
         return (
     <div>

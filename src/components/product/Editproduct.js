@@ -3,6 +3,7 @@ import '../../App.css';
 import InventoryHeader from '../header/InventoryHeader';
 import SideNav from '../sideNavbar/Sidenav';
 import Axios from 'axios';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import editProductBroadcast from '../../actions/editProductBroadcast';
@@ -220,6 +221,9 @@ class EditProduct extends React.Component {
 
 
     render() { 
+        if(sessionStorage.getItem("loggedInUser")===''){
+            return <Redirect to={{ pathname : "/" }} />
+        }
         if(this.props.location.state === undefined){
             return (
                 <div>

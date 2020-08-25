@@ -269,6 +269,22 @@
       "reorder_value": 100,
       "replenishment_value": 50,
       "id": 29
+    },
+    {
+      "id": 30,
+      "name": "Chennai Silks",
+      "price": "245",
+      "category": "Sarees",
+      "quantity": "23",
+      "code": "CHN234",
+      "idealFor": "Women",
+      "vendor": "Chela Sarees",
+      "manufacturer": "Chennai Silks",
+      "description": "Saree",
+      "color": "Gold",
+      "size": "-",
+      "material": "Silk",
+      "rating": "4"
     }
   ],
   "sales": [

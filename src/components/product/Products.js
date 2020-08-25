@@ -8,7 +8,6 @@ import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import deleteProduct from '../../actions/deleteProductBroadcast';
 import { bindActionCreators } from 'redux';
-import Login from '../login/Login';
 
 var storeData = [];
 
@@ -152,7 +151,7 @@ class Products extends React.Component {
 
     render() { 
       if(sessionStorage.getItem("loggedInUser")===''){
-        return <Login />
+        return <Redirect to={{ pathname : "/" }} />
     }
 
       if(this.state.editClicked){

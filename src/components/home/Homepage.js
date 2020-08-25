@@ -3,7 +3,7 @@ import Products from '../product/Products';
 import Dashboard from './Dashboard';
 import InventoryHeader from '../header/InventoryHeader';
 import SideNav from '../sideNavbar/Sidenav';
-import Login from '../login/Login';
+import { Redirect } from 'react-router-dom';
 import '../../App.css';
 
 class Homepage extends React.Component {
@@ -32,7 +32,7 @@ class Homepage extends React.Component {
 render()
 {
     if(sessionStorage.getItem("loggedInUser")===''){
-        return <Login />
+        return <Redirect to={{ pathname : "/" }} />
     }else{
     return (
         <div>
