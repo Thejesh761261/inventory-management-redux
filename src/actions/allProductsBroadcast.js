@@ -1,4 +1,9 @@
-const allProductsBroadcast = function(products){
+import productsData from '../data/inventory.json';
+
+const allProductsBroadcast = function(){
+
+    const products = productsData.products;
+    console.log(products)
 
     console.log("In action Listener "+products);
 
@@ -7,5 +12,7 @@ const allProductsBroadcast = function(products){
         payload:products
     })
 }
+
+
 
 export default allProductsBroadcast;

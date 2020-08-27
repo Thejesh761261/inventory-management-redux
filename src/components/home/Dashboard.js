@@ -3,6 +3,10 @@ import '../../App.css';
 import Chart from 'react-google-charts';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import allProductsBroadcast from '../../actions/allProductsBroadcast';
+import salesBroadcast from '../../actions/salesBroadcast';
+
 
 class Dashboard extends React.Component{
 
@@ -15,10 +19,17 @@ class Dashboard extends React.Component{
         chart2:[
             ["Date","Formals","Kurtas","Jeans","Sarees","Shorts","T-Shirts"]
         ],
-        categories:[]
+        categories:[],
+        sales:[]
     }
 
-    componentDidMount=()=>{
+    componentWillReceiveProps=(props)=>{
+       this.setState({products:props.products})
+       console.log(this.state.products);
+       console.log(props.products)
+    }
+
+    componentWillMount=()=>{
         console.log("cdm");
         this.fetchProductDetails();
     }
@@ -53,8 +64,14 @@ class Dashboard extends React.Component{
         //     },error=>{
         //     console.log(error)
         // })
-        console.log(this.props.products)
-        this.setState({products:this.props.products});
+        if(this.props.products.length === 0){
+            this.props.sendAllSales();
+        }
+        
+          if(this.props.sales.length === 0){
+            this.props.sendAllProducts();
+          }
+        this.setState({products:this.state.products});
         this.props.products.map(p=>{
             this.state.categories.push(p.category)
         })
@@ -176,4 +193,11 @@ function convertStoreToPropsForSalesDetails(store){
 
 }
 
-export default connect(convertStoreToPropsForSalesDetails)(Dashboard);
+    function convertEventToPropsAndDispatch(dispatch){
+        return bindActionCreators({
+          sendAllProducts:allProductsBroadcast,
+          sendAllSales:salesBroadcast
+        },dispatch);
+      }
+
+export default connect(convertStoreToPropsForSalesDetails,convertEventToPropsAndDispatch)(Dashboard);

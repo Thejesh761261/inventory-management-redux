@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import deleteProduct from '../../actions/deleteProductBroadcast';
 import { bindActionCreators } from 'redux';
 import allProductsBroadcast from '../../actions/allProductsBroadcast';
+import ReactTooltip from "react-tooltip";
 
 var storeData = [];
 
@@ -23,9 +24,13 @@ class Products extends React.Component {
         tableView:true,
         categories:[],
         manufacturer:[],
-        products1:[]
+        products1:[],
+        select1:'',
+        select2:'',
+        select3:0
      }
 
+     
   //    componentWillMount(){
   //      console.log(this.props.products)
   //     if(this.props.products === undefined){
@@ -64,6 +69,10 @@ class Products extends React.Component {
         //   },error=>{
         //     console.log(error)
         //   })
+        if(this.props.products.length === 0){
+          this.props.sendAllProducts();
+        }
+        
         console.log("Fetched")
         console.log(this.props.products)
         this.setState({products:storeData},()=>console.log(JSON.stringify(this.state.products)));
@@ -118,6 +127,55 @@ class Products extends React.Component {
       this.setState({editClicked:true})
      }
 
+     selectOneHandler=(e)=>{
+       let sel = e.target.value;
+       this.setState({select1:sel})
+       this.setState({products:this.state.products})
+      console.log(this.state.select1)
+    }
+
+    selectTwoHandler=(e)=>{
+      this.setState({select2:e.target.value})
+      this.setState({products:this.state.products})
+      console.log(this.state.select2)
+    }
+
+    selectThreeHandler=(e)=>{
+      this.setState({select3:parseFloat(e.target.value)})
+      this.setState({products:this.state.products})
+      console.log(this.state.select3)
+    }
+
+    selection=()=>{
+      document.getElementById("manufacturer1").value="Choose Manufacturer";
+      document.getElementById("category1").value="Choose Category";
+      document.getElementById("ratings1").value="Choose Ratings";
+      console.log(this.state.select1);
+      console.log(this.state.select2);
+      console.log(this.state.select3);
+      if(this.state.select1==''&&this.state.select2==''&&this.state.select3===0){
+        this.fetchProductDetails();
+        
+      }
+      // else if(this.state.select1!=''&&this.state.select2!=''&&this.state.select3===0){
+      //   this.fetchProductDetails();
+      // }
+      else if(this.state.select1==''&&this.state.select2==''&&this.state.select3!==0){
+        let searchProd = this.state.tempProducts.filter(p=>{
+          return p.rating>=this.state.select3
+        })
+        this.setState({products:searchProd});
+      }else{
+      
+        let searchProd=this.state.tempProducts.filter(p=>{
+          return p.category.toLowerCase().match(this.state.select1.toLowerCase())&&p.manufacturer.toLowerCase().match(this.state.select2.toLowerCase())&&p.rating>=this.state.select3;
+        })
+        this.setState({select1:'',select2:'',select3:0});
+        this.setState({products:searchProd});
+      }
+
+    }
+
      categoryChangeHandler=(e)=>{
       document.getElementById("manufacturer").value="Choose Manufacturer";
       let value = e.target.value;
@@ -164,13 +222,75 @@ class Products extends React.Component {
         })
         this.setState({products:searchProd});
       }
-
      }
 
-    render() { 
-      if(sessionStorage.getItem("loggedInUser")===''){
-        return <Redirect to={{ pathname : "/" }} />
+
+     ratingSort=(e)=>{
+      console.log(e.target.className);
+      let sortValue = e.target.className;
+      console.log(typeof(sortValue))
+      console.log(this.state.Products);
+      let sortedArray = this.state.tempProducts.sort((a,b)=>{
+                console.log(sortValue)
+        if(a.rating<b.rating){
+          return 1;
+        }
+        if(a.rating>b.rating){
+          return -1;
+      }
+      return 0;
+      })
+      console.log(sortedArray)
+      this.setState({products:sortedArray});
+
     }
+
+    priceSort=(e)=>{
+      console.log(e.target.className);
+      let sortValue = e.target.className;
+      console.log(typeof(sortValue))
+      console.log(this.state.Products);
+      let sortedArray = this.state.tempProducts.sort((a,b)=>{
+                console.log(sortValue)
+        if(a.unitPrice>b.unitPrice){
+          return 1;
+        }
+        if(a.unitPrice<b.unitPrice){
+          return -1;
+      }
+      return 0;
+      })
+      console.log(sortedArray)
+      this.setState({products:sortedArray});
+
+    }
+
+    stockSort=(e)=>{
+      console.log(e.target.className);
+      let sortValue = e.target.className;
+      console.log(typeof(sortValue))
+      console.log(this.state.Products);
+      let sortedArray = this.state.tempProducts.sort((a,b)=>{
+                console.log(sortValue)
+        if(a.quantity>b.quantity){
+          return 1;
+        }
+        if(a.quantity<b.quantity){
+          return -1;
+      }
+      return 0;
+      })
+      console.log(sortedArray)
+      this.setState({products:sortedArray});
+
+    }
+
+
+
+    render() { 
+    //   if(sessionStorage.getItem("loggedInUser")===''){
+    //     return <Redirect to={{ pathname : "/" }} />
+    // }
 
       if(this.state.editClicked){
         this.setState({editClicked:false})
@@ -187,16 +307,15 @@ class Products extends React.Component {
             <SideNav></SideNav>
             
                <div className="" style={{marginLeft:"16%",marginRight:"2%",marginTop:"1%"}}>
-               <div > 
+               <div> 
                    <span>
                        <h2 className="he1">Product Details</h2>
                        <hr></hr>
                    </span>
                   
-                   <span style={{display: 'inline block',margin: '3rem'}}>
-                   
-                       Product search &nbsp;
-                       <input type="search"  placeholder="Search....."  className="search" onChange={this.search} />&nbsp;
+                   <div className="flx" style={{justifyContent:"space-between"}}>
+                   <button className="btn btn-info" style={{margin:"2rem"}} onClick={this.toggleHandler}>Toggle View</button>
+                       
                        <select name="Category" id="category" className="form-control" style={{width:"15rem",display:"inline"}} onChange={this.categoryChangeHandler}>
                        <option value="Choose Category">Choose Category</option>
                           {this.state.categories.map((s, i) => (
@@ -214,49 +333,110 @@ class Products extends React.Component {
                               ))}
                           </select>
                           
-                       <button className="btn btn-info" style={{marginLeft:"2rem"}} onClick={this.toggleHandler}>Toggle View</button>
+                       {/* <label>Product search </label>&nbsp; */}
+                       <input type="search"  placeholder="Search....." style={{float:"right",margin:"2rem"}} className="search" onChange={this.search} />&nbsp;
 
                        {/* <Link to="/addProduct"><button className="addB" >Add Product</button></Link> */}
-                   </span>
+                   </div>
+                   <div className="div2">
+                   
+                     <h5 style={{textDecoration:'underline'}}>Aggregation search</h5>
+                       <select name="Category1" id="category1" className="form-control" style={{width:"15rem",display:"inline",margin:"2rem 0 0 2rem"}} onChange={this.selectOneHandler} >
+                       <option value="Choose Category">Choose Category</option>
+                          {this.state.categories.map((s, i) => (
+                              <option key={i} defaultValue='' value={s}>
+                              {s}
+                              </option>
+                              ))}
+                          </select>
+                       <select name="Manufacturer1" id="manufacturer1" className="form-control" style={{width:"15rem",display:"inline",margin:"2rem 0 0 0"}} onChange={this.selectTwoHandler} >
+                       <option value="Choose Manufacturer">Choose Manufacturer</option>
+                          {this.state.manufacturer.map((s, i) => (
+                              <option key={i} defaultValue='' value={s}>
+                              {s}
+                              </option>
+                              ))}
+                          </select>
+                          <select name="Ratings1" id="ratings1" className="form-control" style={{width:"15rem",display:"inline",margin:"2rem 2rem 0 0"}} onChange={this.selectThreeHandler}>
+                            <option value="Choose Ratings">Choose Ratings</option>
+                            <option value="1">Greater than or equal to 1</option>
+                            <option value="2">Greater than or equal to 2</option>
+                            <option value="3">Greater than or equal to 3</option>
+                            <option value="4">Greater than or equal to 4</option>
+                            <option value="5">Equal to 5</option>
+
+                          
+                          </select>
+
+
+                         <button className="btn btn-success searchB" onClick={this.selection} style={{margin:"2rem"}}>Search</button>
+                   </div>
+                   <hr></hr>
                </div>
               {this.state.tableView && (
                <div className="d1">
                    <table>
                      <thead>
                        <tr>
+                         {/* <th></th> */}
                          <th>Product Name</th>
                          <th>Manufacturer</th>
                          <th>Category</th>
                          <th>Vendor</th>
-                         <th>Price per unit</th>
-                         <th>Available Stock</th>
-                         {/* <th>Size</th> */}
+                         <th onClick={this.priceSort} className="unitPrice s1" data-tip data-for="price">Price per unit</th>
+                         <th onClick={this.stockSort} className="quantity s1" data-tip data-for="stock">Available Stock</th>
+                         <th>Size</th>
                          <th>Color</th>
+                         <th>Repleneshment Value</th>
+                         <th>Reorder Value</th>
+                         <th onClick={this.ratingSort} className="rating s1" data-tip data-for="price">Rating</th>
                          <th></th>
                          <th></th>
+                         <ReactTooltip id="price" place="top" effect="solid">
+                             Click to sort price
+                         </ReactTooltip>
+                         <ReactTooltip id="stock" place="top" effect="solid">
+                             Click to sort stock 
+                         </ReactTooltip>
+                         <ReactTooltip id="rating" place="top" effect="solid">
+                             Click to sort ratings
+                         </ReactTooltip>
                        </tr>
                      </thead>
                      <tbody>
                          {this.state.products.map(product=>{
                            return (
                              <tr>
+                               {/* <td><input type="checkbox"></input></td> */}
                                 <td>{product.name.toUpperCase()}</td>
                                 <td>{product.manufacturer.toUpperCase()}</td>
                                 <td>{product.category.toUpperCase()}</td>
                                 <td>{product.vendor.toUpperCase()}</td>
-                                <td>${product.unitPrice}</td>
+                                <td>&#8377;{product.unitPrice}</td>
                                 <td>{product.quantity}</td>
-                                {/* <td>{product.size}</td> */}
-                                <td><div style={{backgroundColor:product.color,borderRadius:"50%",height:"1rem",width:"1rem"}}></div></td>
+                                <td>{product.size}</td>
+                                <td>{product.color}</td>
+                                <td>{product.replenishment_value}</td>
+                                <td>{product.reorder_value}</td>
+                                <td>{product.rating}</td>
+                                {/* <td><div style={{backgroundColor:product.color,borderRadius:"50%",height:"1rem",width:"1rem"}}></div></td> */}
                                 <td><input type="button" id={product.id} value="Edit" className="b1" onClick={this.editHandler} /></td>
                                 <td><input type="button" id={product.id} value="Delete" className="b1" onClick={this.deleteProduct} /></td>
                               </tr>
-                    
                            )
                          })}
                        
                        </tbody>
                      </table>
+                     {/* <div className="pagination">
+                              <p>&laquo;</p>
+                              <p>1</p>
+                              <p className="active">2</p>
+                              <p>3</p>
+                              <p>4</p>
+                              <p>5</p>
+                              <p>&raquo;</p>
+                            </div> */}
                    </div>
                      )}
                </div>
@@ -275,9 +455,12 @@ class Products extends React.Component {
                         <p className="card-text"><b>Manufacturer:</b> {product.manufacturer.toUpperCase()}</p>
                         <p className="card-text"><b>Category:</b> {product.category.toUpperCase()}</p>
                         <p className="card-text"><b>Vendor: </b>{product.vendor.toUpperCase()}</p>
-                        <p className="card-text"><b>Price:</b> ${product.unitPrice}</p>
+                        <p className="card-text"><b>Price:</b> &#8377;{product.unitPrice}</p>
                         <p className="card-text"><b>Quantity: </b>{product.quantity}</p>
                         <p className="card-text"><b>Color: </b>{product.color}</p>
+                        <p className="card-text"><b>Repleneshment value: </b>{product.replenishment_value}</p>
+                        <p className="card-text"><b>Reorder Value: </b>{product.reorder_value}</p>
+                        <p className="card-text"><b>Rating: </b>{product.rating}</p>
                         <button className="btn btn-success b1" style={{ margin:"2rem"}} id={product.id} value="Edit" onClick={this.editHandler}>Edit</button>
                         <button className="btn btn-success b1" id={product.id} value="Delete" onClick={this.deleteProduct}>Delete</button>
                       </div>
@@ -299,6 +482,7 @@ class Products extends React.Component {
 function convertStoreToPropsForProductsContainer(store){
   console.log(store);
   storeData=store.products;
+  console.log("Store data in products "+storeData);
   return {
     products:storeData
   }
@@ -306,14 +490,10 @@ function convertStoreToPropsForProductsContainer(store){
 
 function convertEventToPropsAndDispatch(dispatch){
   return bindActionCreators({
-    deleteClicked:deleteProduct
+    deleteClicked:deleteProduct,
+    sendAllProducts:allProductsBroadcast
   },dispatch);
 }
 
-// function convertfunctionToPropsAndBroadcast(dispatch){
-//   return bindActionCreators({
-//     sendAllProducts:allProductsBroadcast
-//   },dispatch);
-// }
 
 export default withRouter(connect(convertStoreToPropsForProductsContainer,convertEventToPropsAndDispatch)(Products));
