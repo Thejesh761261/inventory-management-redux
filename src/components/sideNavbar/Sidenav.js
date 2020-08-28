@@ -11,7 +11,7 @@ class Sidenav extends React.Component {
                 <Link to="/home"><div >Dashboard</div></Link> 
                 <Link to="/products"><div>Product Details</div></Link>
                <Link to="/addProduct"><div >Add Product</div></Link>
-               <Link to="/home"><div >Contact</div></Link>
+               <Link to="#"><div >Contact</div></Link>
               
              </div>
             
