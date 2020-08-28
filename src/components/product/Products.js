@@ -288,9 +288,9 @@ class Products extends React.Component {
 
 
     render() { 
-    //   if(sessionStorage.getItem("loggedInUser")===''){
-    //     return <Redirect to={{ pathname : "/" }} />
-    // }
+      if(sessionStorage.getItem("loggedInUser")===''){
+        return <Redirect to={{ pathname : "/" }} />
+    }
 
       if(this.state.editClicked){
         this.setState({editClicked:false})
