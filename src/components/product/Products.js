@@ -130,19 +130,19 @@ class Products extends React.Component {
      selectOneHandler=(e)=>{
        let sel = e.target.value;
        this.setState({select1:sel})
-       this.setState({products:this.state.products})
+       this.setState({products:this.state.tempProducts})
       console.log(this.state.select1)
     }
 
     selectTwoHandler=(e)=>{
       this.setState({select2:e.target.value})
-      this.setState({products:this.state.products})
+      this.setState({products:this.state.tempProducts})
       console.log(this.state.select2)
     }
 
     selectThreeHandler=(e)=>{
       this.setState({select3:parseFloat(e.target.value)})
-      this.setState({products:this.state.products})
+      this.setState({products:this.state.tempProducts})
       console.log(this.state.select3)
     }
 
@@ -315,8 +315,10 @@ class Products extends React.Component {
                   
                    <div className="flx" style={{justifyContent:"space-between"}}>
                    <button className="btn btn-info" style={{margin:"2rem"}} onClick={this.toggleHandler}>Toggle View</button>
+                   <input type="search"  placeholder="Search....." style={{margin:"2rem"}} className="search" onChange={this.search} />&nbsp;
+
                        
-                       <select name="Category" id="category" className="form-control" style={{width:"15rem",display:"inline"}} onChange={this.categoryChangeHandler}>
+                       {/* <select name="Category" id="category" className="form-control" style={{width:"15rem",display:"inline"}} onChange={this.categoryChangeHandler}>
                        <option value="Choose Category">Choose Category</option>
                           {this.state.categories.map((s, i) => (
                               <option key={i} defaultValue='' value={s}>
@@ -331,14 +333,44 @@ class Products extends React.Component {
                               {s}
                               </option>
                               ))}
+                          </select> */}
+
+<select name="Category1" id="category1" className="form-control" style={{width:"15rem",display:"inline",margin:"2rem 0 0 2rem"}} onChange={this.selectOneHandler} >
+                       <option value="Choose Category">Choose Category</option>
+                          {this.state.categories.map((s, i) => (
+                              <option key={i} defaultValue='' value={s}>
+                              {s}
+                              </option>
+                              ))}
                           </select>
+                       <select name="Manufacturer1" id="manufacturer1" className="form-control" style={{width:"15rem",display:"inline",margin:"2rem 0 0 0"}} onChange={this.selectTwoHandler} >
+                       <option value="Choose Manufacturer">Choose Manufacturer</option>
+                          {this.state.manufacturer.map((s, i) => (
+                              <option key={i} defaultValue='' value={s}>
+                              {s}
+                              </option>
+                              ))}
+                          </select>
+                          <select name="Ratings1" id="ratings1" className="form-control" style={{width:"15rem",display:"inline",margin:"2rem 2rem 0 0"}} onChange={this.selectThreeHandler}>
+                            <option value="Choose Ratings">Choose Ratings</option>
+                            <option value="1">Greater than or equal to 1</option>
+                            <option value="2">Greater than or equal to 2</option>
+                            <option value="3">Greater than or equal to 3</option>
+                            <option value="4">Greater than or equal to 4</option>
+                            <option value="5">Equal to 5</option>
+
+                          
+                          </select>
+
+
+                         <button className="btn btn-success searchB" onClick={this.selection} style={{margin:"2rem"}}>Search</button>
                           
                        {/* <label>Product search </label>&nbsp; */}
-                       <input type="search"  placeholder="Search....." style={{float:"right",margin:"2rem"}} className="search" onChange={this.search} />&nbsp;
+                       {/* <input type="search"  placeholder="Search....." style={{float:"right",margin:"2rem"}} className="search" onChange={this.search} />&nbsp; */}
 
                        {/* <Link to="/addProduct"><button className="addB" >Add Product</button></Link> */}
                    </div>
-                   <div className="div2">
+                   {/* <div className="div2">
                    
                      <h5 style={{textDecoration:'underline'}}>Aggregation search</h5>
                        <select name="Category1" id="category1" className="form-control" style={{width:"15rem",display:"inline",margin:"2rem 0 0 2rem"}} onChange={this.selectOneHandler} >
@@ -370,7 +402,7 @@ class Products extends React.Component {
 
 
                          <button className="btn btn-success searchB" onClick={this.selection} style={{margin:"2rem"}}>Search</button>
-                   </div>
+                   </div> */}
                    <hr></hr>
                </div>
               {this.state.tableView && (
@@ -389,17 +421,17 @@ class Products extends React.Component {
                          <th>Color</th>
                          <th>Repleneshment Value</th>
                          <th>Reorder Value</th>
-                         <th onClick={this.ratingSort} className="rating s1" data-tip data-for="price">Rating</th>
+                         <th onClick={this.ratingSort} className="rating s1" data-tip data-for="rating">Rating</th>
                          <th></th>
                          <th></th>
                          <ReactTooltip id="price" place="top" effect="solid">
-                             Click to sort price
+                             Click to sort by price
                          </ReactTooltip>
                          <ReactTooltip id="stock" place="top" effect="solid">
-                             Click to sort stock 
+                             Click to sort by stock 
                          </ReactTooltip>
                          <ReactTooltip id="rating" place="top" effect="solid">
-                             Click to sort ratings
+                             Click to sort by ratings
                          </ReactTooltip>
                        </tr>
                      </thead>
